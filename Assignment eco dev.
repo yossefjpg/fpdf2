@@ -1,0 +1,119 @@
+from fpdf import FPDF
+
+# Create a subclass of FPDF to include header and footer if needed.
+class PDF(FPDF):
+    def header(self):
+        # Title in the header
+        self.set_font("Arial", "B", 14)
+        self.cell(0, 10, "Economic Development Policies in Egypt: Changes in HDI and GDP", ln=True, align="C")
+        self.ln(5)
+
+    def chapter_title(self, title):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, title, ln=True)
+        self.ln(2)
+
+    def chapter_body(self, body):
+        self.set_font("Arial", "", 12)
+        self.multi_cell(0, 10, body)
+        self.ln()
+
+# Initialize PDF
+pdf = PDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+
+# Content for the PDF
+content = {
+    "1. Introduction": (
+        "Economic development plays a crucial role in enhancing the standard of living and improving a nation’s social and economic well-being. "
+        "Two key indicators used to measure development are:\n\n"
+        "• Human Development Index (HDI) – Assesses a country's progress in education, healthcare, and income.\n"
+        "• Gross Domestic Product (GDP) – Measures the total economic output and growth of a nation.\n\n"
+        "Over the past decades, Egypt has implemented various economic policies to improve these indicators. "
+        "This paper analyzes Egypt’s economic development strategies and their impact on HDI and GDP growth."
+    ),
+    "2. Economic Development in Egypt": (
+        "2.1 Overview of Egypt’s Economic Policies\n\n"
+        "Egypt’s government has introduced multiple reforms to enhance economic stability and long-term growth. "
+        "The most significant policies include:\n\n"
+        "✔ Privatization & Market Liberalization\n"
+        "   - Shift from state-controlled enterprises to a market-based economy.\n"
+        "   - Encouragement of private sector investments.\n\n"
+        "✔ Investment in Infrastructure\n"
+        "   - Expansion of transportation networks, including roads, railways, and ports.\n"
+        "   - Development of renewable energy projects to meet rising demand.\n\n"
+        "✔ Education and Healthcare Reforms\n"
+        "   - Introduction of new educational institutions and reforms to improve literacy rates.\n"
+        "   - Increased government spending on public healthcare services.\n\n"
+        "2.2 Trends in GDP Growth\n\n"
+        "Egypt’s GDP has experienced various shifts due to economic reforms, global economic conditions, and political events.\n\n"
+        "Time Period      | GDP Trend        | Key Factors\n"
+        "-----------------|------------------|--------------------------------------------\n"
+        "2000–2010      | Steady Growth    | Expansion of private sector & foreign investments.\n"
+        "2011–2013      | Decline          | Political unrest & economic slowdown.\n"
+        "2014–Present   | Growth Recovery  | Economic reforms, currency devaluation, & mega projects.\n\n"
+        "Key Economic Growth Drivers:\n"
+        "• Foreign Direct Investment (FDI) in energy, manufacturing, and real estate.\n"
+        "• Government mega-projects, such as the Suez Canal expansion and the New Administrative Capital.\n"
+        "• Tourism revival efforts after political instability.\n\n"
+        "2.3 HDI Progress in Egypt\n\n"
+        "Egypt has shown steady improvement in HDI, driven by reforms in education, healthcare, and income levels.\n\n"
+        "A. Education Improvements\n"
+        "   • Expansion of free primary and secondary education.\n"
+        "   • Establishment of new universities and technical institutes.\n"
+        "   • Increased focus on STEM programs.\n\n"
+        "B. Healthcare Advancements\n"
+        "   • Introduction of universal health insurance programs.\n"
+        "   • Expansion of public hospitals and medical research centers.\n"
+        "   • Government efforts to reduce child mortality rates.\n\n"
+        "C. Income Growth & Poverty Reduction\n"
+        "   • Increase in minimum wages and social welfare programs.\n"
+        "   • Support for entrepreneurship and small businesses.\n"
+        "   • Efforts to reduce unemployment rates through job creation programs."
+    ),
+    "3. Case Study: Egypt Vision 2030": (
+        "Egypt’s long-term development strategy, Vision 2030, aims to transform Egypt into a competitive, sustainable, and diversified economy.\n\n"
+        "Key Goals of Egypt Vision 2030:\n"
+        "• Achieve an 8% GDP growth rate.\n"
+        "• Reduce poverty levels through social support programs.\n"
+        "• Increase investment in renewable energy and environmental sustainability.\n"
+        "• Strengthen international trade partnerships."
+    ),
+    "4. Challenges & Future Recommendations": (
+        "While Egypt has made progress, several challenges remain:\n\n"
+        "A. Economic Challenges\n"
+        "   ⚠ High Inflation Rates – Affecting purchasing power and living costs.\n"
+        "   ⚠ Public Debt – Increasing national debt due to foreign loans.\n"
+        "   ⚠ Unemployment – Youth unemployment remains a critical issue.\n\n"
+        "B. Recommendations for Sustainable Growth\n"
+        "   ✔ Increase Investment in Education & Technology – Encourage research and innovation.\n"
+        "   ✔ Enhance Healthcare Services – Improve medical accessibility in rural areas.\n"
+        "   ✔ Diversify the Economy – Reduce dependence on tourism and focus on industrial development.\n"
+        "   ✔ Strengthen Trade Relations – Expand exports and attract more foreign investments."
+    ),
+    "5. Conclusion": (
+        "Egypt has made significant progress in economic development through various policy reforms, infrastructure projects, and social programs. "
+        "These efforts have contributed to GDP growth and HDI improvement.\n\n"
+        "However, to ensure long-term sustainability, Egypt must continue to invest in education, healthcare, and economic diversification while addressing challenges like inflation, unemployment, and public debt.\n\n"
+        "With the successful implementation of Egypt Vision 2030, the country has the potential to become one of the leading economies in the Middle East and Africa."
+    ),
+    "6. References": (
+        "1. World Bank – Reports on Egypt’s GDP growth.\n"
+        "2. United Nations Development Programme (UNDP) – HDI reports on Egypt.\n"
+        "3. Egypt Vision 2030 – Official government development strategy.\n"
+        "4. NBER (National Bureau of Economic Research) – Economic analysis on Egypt.\n"
+        "5. ECFR (European Council on Foreign Relations) – Economic policies and foreign investments in Egypt."
+    )
+}
+
+# Add content sections to the PDF
+for section, text in content.items():
+    pdf.chapter_title(section)
+    pdf.chapter_body(text)
+
+# Save the PDF to a file
+pdf_filename = "Economic_Development_Policies_Egypt.pdf"
+pdf.output(pdf_filename)
+
+print(f"PDF generated successfully: {pdf_filename}")
